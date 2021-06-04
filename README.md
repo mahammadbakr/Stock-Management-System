@@ -10,7 +10,7 @@ This System is Contains Backend and Restful API for a stock management system us
 ### Clone Source Code
 
 ```java
-clone https://github.com/mahammadbakr/Stock-Management-System.git
+git clone https://github.com/mahammadbakr/Stock-Management-System.git
 ```
 
 ### Start Project
