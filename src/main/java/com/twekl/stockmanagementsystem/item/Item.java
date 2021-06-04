@@ -1,6 +1,11 @@
 package com.twekl.stockmanagementsystem.item;
 
+import com.sun.istack.NotNull;
+import com.twekl.stockmanagementsystem.stock.Stock;
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
+
 
 @Entity
 @Table
@@ -16,14 +21,18 @@ public class Item {
             generator = "Item_sequence"
     )
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
     private String code;
+    @ColumnDefault("0")
     private int price;
+    @ColumnDefault("0")
     private int quantity;
 
     public Item(){
     }
-    public Item(String name, String code, int price, int quantity) {
+    public Item(String name, String code, int price, int quantity,Stock stock) {
         this.name = name;
         this.code = code;
         this.price = price;
@@ -69,4 +78,5 @@ public class Item {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
 }

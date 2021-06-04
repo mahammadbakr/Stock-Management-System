@@ -1,6 +1,11 @@
 package com.twekl.stockmanagementsystem.stock;
 
+import com.sun.istack.NotNull;
+import com.twekl.stockmanagementsystem.item.Item;
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -16,9 +21,15 @@ public class Stock {
             generator = "stock_sequence"
     )
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
     private String address;
+    @NotNull
     private Long size;
+    @OneToMany(targetEntity = Item.class,cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "id")
+    private List<Item> items;
 
     public Stock() {
     }
@@ -27,6 +38,13 @@ public class Stock {
         this.name = name;
         this.address = address;
         this.size = size;
+    }
+
+    public Stock( String name, String address, Long size,List<Item> items) {
+        this.name = name;
+        this.address = address;
+        this.size = size;
+        this.items= items;
     }
 
     public Long getId() {
@@ -60,6 +78,12 @@ public class Stock {
     public void setSize(Long size) {
         this.size = size;
     }
-    
-    
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
 }

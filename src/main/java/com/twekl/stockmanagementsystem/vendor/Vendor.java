@@ -1,6 +1,10 @@
 package com.twekl.stockmanagementsystem.vendor;
 
+import com.sun.istack.NotNull;
+import com.twekl.stockmanagementsystem.order.OrderRequest;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -16,9 +20,16 @@ public class Vendor {
             generator = "Vendor_sequence"
     )
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
     private String address;
+    @NotNull
     private int phone;
+
+    @OneToMany(targetEntity = OrderRequest.class,cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "id")
+    private List<OrderRequest> requests;
 
     public Vendor(){
     }
@@ -28,6 +39,7 @@ public class Vendor {
         this.address = address;
         this.phone = phone;
     }
+
 
     public Long getId() {
         return id;
@@ -59,5 +71,17 @@ public class Vendor {
 
     public void setPhone(int phone) {
         this.phone = phone;
+    }
+
+    public List<OrderRequest> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<OrderRequest> requests) {
+        this.requests = requests;
+    }
+
+    public void addOrderToVendor(OrderRequest request) {
+        requests.add(request);
     }
 }

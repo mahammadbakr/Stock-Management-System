@@ -1,5 +1,6 @@
 package com.twekl.stockmanagementsystem.vendor;
 
+import com.twekl.stockmanagementsystem.order.OrderRequest;
 import com.twekl.stockmanagementsystem.stock.Stock;
 import com.twekl.stockmanagementsystem.stock.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,15 @@ public class VendorServices {
             vendor.setAddress(address);
         }
         vendorRepository.save(vendor);
+    }
+
+    @Transactional
+    public void addRequestFromVendor(Long vendorId, OrderRequest request) {
+        Vendor vendor = vendorRepository.findById(vendorId).orElseThrow(
+                ()-> new IllegalStateException("Stock with id: "+vendorId+" does not exist"));
+
+        if(request!=null){
+            vendor.addOrderToVendor(request);
+        }
     }
 }
