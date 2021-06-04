@@ -13,11 +13,26 @@ This System is Contains Backend and Restful API for a stock management system us
 git clone https://github.com/mahammadbakr/Stock-Management-System.git
 ```
 
+### Download Postgre And Create a Database
+- Link to download["https://postgresapp.com/downloads.html"]
+  
+- Open Command line and Run this
+```java
+psql
+```
+
+- Create Database named |stock_managment_db|
+```java
+CREATE DATABASE stock_managment_db;
+```
+
+
 ### Start Project
 
 ```java
 /mvnw spring-boot:run
 ```
+
 
 
 ### Stock Management System
