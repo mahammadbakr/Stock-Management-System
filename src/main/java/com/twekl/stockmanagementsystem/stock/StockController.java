@@ -29,11 +29,12 @@ public class StockController {
     public void addNewStock(@RequestBody Stock stock){
         stockServices.addNewStock(stock);
     }
-    @DeleteMapping(path = "{stockId}")
-    public void addNewStock(@PathVariable("stockId") Long stockId){
+    @DeleteMapping(path = "/deleteStock/{stockId}")
+    public void deleteStock(@PathVariable("stockId") Long stockId){
         stockServices.deleteStockById(stockId);
     }
-    @PutMapping(path = "{stockId}")
+
+    @PutMapping(path = "/updateStock/{stockId}")
     public void updateStock(
             @PathVariable("stockId") Long stockId,
             @RequestParam(required = false) String name,

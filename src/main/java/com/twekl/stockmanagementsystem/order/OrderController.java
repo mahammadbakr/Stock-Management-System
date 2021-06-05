@@ -27,6 +27,13 @@ public class OrderController {
         return orderServices.getOrders();
     }
 
+    @DeleteMapping(path = "/deleteOrder/{orderId}")
+    public void deleteOrder(
+            @PathVariable("orderId") Long orderId
+    ){
+        orderServices.deleteOrderById(orderId);
+    }
+
     @PutMapping(path = "/updateOrder/{orderId}")
     public void updateItem(
             @PathVariable("orderId") Long orderId,

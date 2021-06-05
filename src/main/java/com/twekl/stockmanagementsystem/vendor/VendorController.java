@@ -36,8 +36,8 @@ public class VendorController {
     public void addNewVendor(@RequestBody Vendor vendor){
         vendorServices.addNewVendor(vendor);
     }
-    @DeleteMapping(path = "{vendorId}")
-    public void addNewVendor(@PathVariable("vendorId") Long vendorId){
+    @DeleteMapping(path = "/deleteVendor/{vendorId}")
+    public void deleteVendor(@PathVariable("vendorId") Long vendorId){
         vendorServices.deleteVendorById(vendorId);
     }
     @PutMapping(path = "/updateVendor/{vendorId}/stocks/{stockId}")

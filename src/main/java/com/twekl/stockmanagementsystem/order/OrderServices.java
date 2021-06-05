@@ -25,6 +25,14 @@ public class OrderServices {
         return orderRepository.findAll();
     }
 
+    public void deleteOrderById(Long orderId) {
+        boolean exists = orderRepository.existsById(orderId);
+        if(!exists){
+            throw new IllegalStateException("Order with id: "+orderId+" does not exist");
+        }
+        orderRepository.deleteById(orderId);
+    }
+
     @Transactional
     public void updateOrder(Long orderId, String name) {
         Order order = orderRepository.findById(orderId).orElseThrow(

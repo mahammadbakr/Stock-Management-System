@@ -23,8 +23,8 @@ public class ItemController {
     public void addNewItem(@RequestBody Item item){
         itemServices.addNewItem(item);
     }
-    @DeleteMapping(path = "{itemId}")
-    public void addNewItem(@PathVariable("itemId") Long itemId){
+    @DeleteMapping(path = "/deleteItem/{itemId}")
+    public void deleteItem(@PathVariable("itemId") Long itemId){
         itemServices.deleteItemById(itemId);
     }
     @PutMapping(path = "/updateItem/{itemId}")
