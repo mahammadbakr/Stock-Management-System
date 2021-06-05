@@ -1,5 +1,6 @@
 package com.twekl.stockmanagementsystem.stock;
 
+import com.twekl.stockmanagementsystem.vendor.Vendor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,19 @@ public class StockServices {
     @Autowired
     public StockServices(StockRepository stockRepository) {
         this.stockRepository = stockRepository;
+    }
+
+    public void saveStock(Stock stock){
+        stockRepository.save(stock);
+    }
+
+    public Stock findById(Long stockId) {
+        boolean exists = stockRepository.existsById(stockId);
+        if(!exists){
+            throw new IllegalStateException("Stock with id: "+stockId+" does not exist");
+        }
+        Stock stock = stockRepository.findById(stockId).get();
+        return stock ;
     }
 
     public List<Stock> getStocks(){

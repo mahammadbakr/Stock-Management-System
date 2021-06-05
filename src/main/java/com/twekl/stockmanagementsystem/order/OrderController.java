@@ -1,29 +1,38 @@
 package com.twekl.stockmanagementsystem.order;
 
 
-import com.twekl.stockmanagementsystem.item.ItemRepository;
-import com.twekl.stockmanagementsystem.vendor.Vendor;
 import com.twekl.stockmanagementsystem.vendor.VendorRepository;
-import com.twekl.stockmanagementsystem.vendor.VendorServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
 @RequestMapping(path = "api/v1/orders")
 public class OrderController {
     @Autowired
-    private VendorServices vendorServices;
+    private OrderServices orderServices;
 
+    @Autowired
+    private VendorRepository vendorRepository;
 
-    @PutMapping(path = "{vendorId}")
-    public void makeAnOrder(
-            @PathVariable("vendorId") Long vendorId,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String address,
-            @RequestParam(required = false) int phone
+    @Autowired
+    public OrderController(OrderServices orderServices){
+        this.orderServices=orderServices;
+    }
+
+    @GetMapping
+    public List<Order> getOrders(){
+        return orderServices.getOrders();
+    }
+
+    @PutMapping(path = "/updateOrder/{orderId}")
+    public void updateItem(
+            @PathVariable("orderId") Long orderId,
+            @RequestParam(required = false) String name
     ){
-        vendorServices.addRequestFromVendor(vendorId,new OrderRequest(new Vendor(name, address,phone)));
+        orderServices.updateOrder(orderId,name);
     }
 
 }

@@ -1,7 +1,10 @@
 package com.twekl.stockmanagementsystem.vendor;
 
+import com.twekl.stockmanagementsystem.item.Item;
+import com.twekl.stockmanagementsystem.item.ItemRepository;
+import com.twekl.stockmanagementsystem.order.Order;
+import com.twekl.stockmanagementsystem.order.OrderRepository;
 import com.twekl.stockmanagementsystem.stock.Stock;
-import com.twekl.stockmanagementsystem.stock.StockServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +13,18 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/v1/vendors")
 public class VendorController {
+    @Autowired
+    private final ItemRepository itemRepository;
+
+    @Autowired
+    private final OrderRepository orderRepository;
 
     private final VendorServices vendorServices;
+
     @Autowired
-    public VendorController(VendorServices vendorServices){
+    public VendorController(ItemRepository itemRepository, OrderRepository orderRepository, VendorServices vendorServices){
+        this.itemRepository = itemRepository;
+        this.orderRepository = orderRepository;
         this.vendorServices=vendorServices;
     }
 
@@ -29,7 +40,7 @@ public class VendorController {
     public void addNewVendor(@PathVariable("vendorId") Long vendorId){
         vendorServices.deleteVendorById(vendorId);
     }
-    @PutMapping(path = "{vendorId}")
+    @PutMapping(path = "/updateVendor/{vendorId}/stocks/{stockId}")
     public void updateVendor(
             @PathVariable("vendorId") Long vendorId,
             @RequestParam(required = false) String name,
@@ -37,4 +48,34 @@ public class VendorController {
     ){
         vendorServices.updateVendor(vendorId,name,address);
     }
+
+    @PutMapping(path = "/addItem/{vendorId}/items/{itemId}")
+    public Vendor addAnItem(
+            @PathVariable("vendorId") Long vendorId,
+            @PathVariable("itemId") Long itemId
+    ){
+        Item item = itemRepository.findById(itemId).get();
+        Vendor vendor = vendorServices.findById(vendorId);
+
+        vendor.addItemInVendor(item);
+
+        vendorServices.saveVendor(vendor);
+
+        return vendor;
+    }
+
+    @PutMapping(path = "/addOrder/{vendorId}/orders/{orderId}")
+    public Vendor addAnOrder(
+            @PathVariable("orderId") Long orderId,
+            @PathVariable("vendorId") Long vendorId
+    ){
+        Order order = orderRepository.findById(orderId).get();
+        Vendor vendor = vendorServices.findById(vendorId);
+
+        vendor.addOrderInVendor(order);
+
+        vendorServices.saveVendor(vendor);
+        return vendor;
+    }
+
 }

@@ -27,7 +27,7 @@ public class ItemController {
     public void addNewItem(@PathVariable("itemId") Long itemId){
         itemServices.deleteItemById(itemId);
     }
-    @PutMapping(path = "{itemId}")
+    @PutMapping(path = "/updateItem/{itemId}")
     public void updateItem(
             @PathVariable("itemId") Long itemId,
             @RequestParam(required = false) String name,

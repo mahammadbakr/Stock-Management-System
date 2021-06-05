@@ -1,10 +1,11 @@
 package com.twekl.stockmanagementsystem.vendor;
 
 import com.sun.istack.NotNull;
-import com.twekl.stockmanagementsystem.order.OrderRequest;
-
+import com.twekl.stockmanagementsystem.item.Item;
+import com.twekl.stockmanagementsystem.order.Order;
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
@@ -27,9 +28,17 @@ public class Vendor {
     @NotNull
     private int phone;
 
-    @OneToMany(targetEntity = OrderRequest.class,cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "id")
-    private List<OrderRequest> requests;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name ="vendor_item",
+            joinColumns = { @JoinColumn(name ="vendor_fk") },
+            inverseJoinColumns = { @JoinColumn(name = "item_fk") })
+    private Set<Item> items=new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name ="vendor_order",
+            joinColumns = { @JoinColumn(name ="vendor_fk") },
+            inverseJoinColumns = { @JoinColumn(name = "order_fk") })
+    private Set<Order> orders=new HashSet<>();
 
     public Vendor(){
     }
@@ -39,7 +48,6 @@ public class Vendor {
         this.address = address;
         this.phone = phone;
     }
-
 
     public Long getId() {
         return id;
@@ -73,15 +81,31 @@ public class Vendor {
         this.phone = phone;
     }
 
-    public List<OrderRequest> getRequests() {
-        return requests;
+    public Set<Item> getItems() {
+        return items;
     }
 
-    public void setRequests(List<OrderRequest> requests) {
-        this.requests = requests;
+    public void setItems(Set<Item> items) {
+        this.items = items;
     }
 
-    public void addOrderToVendor(OrderRequest request) {
-        requests.add(request);
+    public void addItemInVendor(Item item) {
+        items.add(item);
     }
+
+    public void addOrderInVendor(Order order) {
+        orders.add(order);
+    }
+
+//    public List<OrderRequest> getRequests() {
+//        return requests;
+//    }
+//
+//    public void setRequests(List<OrderRequest> requests) {
+//        this.requests = requests;
+//    }
+//
+//    public void addOrderToVendor(OrderRequest request) {
+//        requests.add(request);
+//    }
 }

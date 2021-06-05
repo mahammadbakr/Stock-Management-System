@@ -2,9 +2,12 @@ package com.twekl.stockmanagementsystem.item;
 
 import com.sun.istack.NotNull;
 import com.twekl.stockmanagementsystem.stock.Stock;
+import com.twekl.stockmanagementsystem.vendor.Vendor;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -25,10 +28,16 @@ public class Item {
     private String name;
     @NotNull
     private String code;
-    @ColumnDefault("0")
-    private int price;
+    @NotNull
+    private int price ;
     @ColumnDefault("0")
     private int quantity;
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "items")
+    private Set<Vendor> vendors=new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "items")
+    private Set<Vendor> stocks=new HashSet<>();
 
     public Item(){
     }

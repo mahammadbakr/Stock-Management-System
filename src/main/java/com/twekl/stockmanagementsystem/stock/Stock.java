@@ -2,10 +2,9 @@ package com.twekl.stockmanagementsystem.stock;
 
 import com.sun.istack.NotNull;
 import com.twekl.stockmanagementsystem.item.Item;
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
@@ -27,9 +26,14 @@ public class Stock {
     private String address;
     @NotNull
     private Long size;
-    @OneToMany(targetEntity = Item.class,cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "id")
-    private List<Item> items;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name ="stock_item",
+            joinColumns = { @JoinColumn(name ="stock_fk") },
+            inverseJoinColumns = { @JoinColumn(name = "item_fk") })
+    private Set<Item> items=new HashSet<>();
+
+
 
     public Stock() {
     }
@@ -40,12 +44,6 @@ public class Stock {
         this.size = size;
     }
 
-    public Stock( String name, String address, Long size,List<Item> items) {
-        this.name = name;
-        this.address = address;
-        this.size = size;
-        this.items= items;
-    }
 
     public Long getId() {
         return id;
@@ -79,11 +77,16 @@ public class Stock {
         this.size = size;
     }
 
-    public List<Item> getItems() {
+    public Set<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(Set<Item> items) {
         this.items = items;
     }
+
+    public void addItemInStock(Item item) {
+        items.add(item);
+    }
+
 }
