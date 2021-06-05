@@ -38,9 +38,10 @@ public class StockController {
     public void updateStock(
             @PathVariable("stockId") Long stockId,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String address
+            @RequestParam(required = false) String address,
+            @RequestParam(required = false) Long size
             ){
-        stockServices.updateStock(stockId,name,address);
+        stockServices.updateStock(stockId,name,address,size);
     }
 
     @PutMapping(path = "/addItem/{stockId}/items/{itemId}")

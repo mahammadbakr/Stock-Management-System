@@ -40,7 +40,7 @@ public class VendorController {
     public void deleteVendor(@PathVariable("vendorId") Long vendorId){
         vendorServices.deleteVendorById(vendorId);
     }
-    @PutMapping(path = "/updateVendor/{vendorId}/stocks/{stockId}")
+    @PutMapping(path = "/updateVendor/{vendorId}")
     public void updateVendor(
             @PathVariable("vendorId") Long vendorId,
             @RequestParam(required = false) String name,

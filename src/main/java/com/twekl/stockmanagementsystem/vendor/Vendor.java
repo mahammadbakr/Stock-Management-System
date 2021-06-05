@@ -97,15 +97,4 @@ public class Vendor {
         orders.add(order);
     }
 
-//    public List<OrderRequest> getRequests() {
-//        return requests;
-//    }
-//
-//    public void setRequests(List<OrderRequest> requests) {
-//        this.requests = requests;
-//    }
-//
-//    public void addOrderToVendor(OrderRequest request) {
-//        requests.add(request);
-//    }
 }

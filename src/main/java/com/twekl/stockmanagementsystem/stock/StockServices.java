@@ -51,7 +51,7 @@ public class StockServices {
         stockRepository.deleteById(stockId);
     }
     @Transactional
-    public void updateStock(Long stockId, String name, String address) {
+    public void updateStock(Long stockId, String name, String address,Long size) {
         Stock stock = stockRepository.findById(stockId).orElseThrow(
                 ()-> new IllegalStateException("Stock with id: "+stockId+" does not exist"));
         if(name!=null && name.length() >0 && !Objects.equals(stock.getName(),name)){
@@ -59,6 +59,9 @@ public class StockServices {
         }
         if(address!=null && address.length() >0 && !Objects.equals(stock.getAddress(),address)){
             stock.setAddress(address);
+        }
+        if( !Objects.equals(stock.getSize(),size)){
+            stock.setSize(size);
         }
         stockRepository.save(stock);
     }
