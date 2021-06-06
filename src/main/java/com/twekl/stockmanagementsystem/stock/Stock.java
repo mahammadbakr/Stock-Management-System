@@ -3,6 +3,7 @@ package com.twekl.stockmanagementsystem.stock;
 import com.sun.istack.NotNull;
 import com.twekl.stockmanagementsystem.item.Item;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +26,15 @@ public class Stock {
     @NotNull
     private String address;
     @NotNull
-    private Long size;
+    private int size;
+    @NotNull
+    private int level;
+    @NotNull
+    private String productCode;
+    @NotNull
+    private String productCategory;
+    @NotNull
+    private Timestamp productDate;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name ="stock_item",
@@ -38,12 +47,19 @@ public class Stock {
     public Stock() {
     }
 
-    public Stock( String name, String address, Long size) {
+    public Stock( String name, String address, int size) {
         this.name = name;
         this.address = address;
         this.size = size;
     }
 
+    public Stock(String name, String address, int size,int level, String productCode, String productCategory) {
+        this.name = name;
+        this.address = address;
+        this.size = size;
+        this.productCode = productCode;
+        this.productCategory = productCategory;
+    }
 
     public Long getId() {
         return id;
@@ -69,12 +85,44 @@ public class Stock {
         this.address = address;
     }
 
-    public Long getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(Long size) {
+    public void setSize(int size) {
         this.size = size;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
+    }
+
+    public Timestamp getProductDate() {
+        return productDate;
+    }
+
+    public void setProductDate(Timestamp productDate) {
+        this.productDate = productDate;
     }
 
     public Set<Item> getItems() {

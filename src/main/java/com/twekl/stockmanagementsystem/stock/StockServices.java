@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -51,7 +52,7 @@ public class StockServices {
         stockRepository.deleteById(stockId);
     }
     @Transactional
-    public void updateStock(Long stockId, String name, String address,Long size) {
+    public void updateStock(Long stockId, String name, String address, int size, int level, String productCode, String productCategory, Timestamp productDate) {
         Stock stock = stockRepository.findById(stockId).orElseThrow(
                 ()-> new IllegalStateException("Stock with id: "+stockId+" does not exist"));
         if(name!=null && name.length() >0 && !Objects.equals(stock.getName(),name)){
@@ -60,8 +61,20 @@ public class StockServices {
         if(address!=null && address.length() >0 && !Objects.equals(stock.getAddress(),address)){
             stock.setAddress(address);
         }
-        if( !Objects.equals(stock.getSize(),size)){
+        if(!Objects.equals(stock.getSize(),size)){
             stock.setSize(size);
+        }
+        if(!Objects.equals(stock.getLevel(),level)){
+            stock.setLevel(level);
+        }
+        if(productCode!=null && productCode.length() >0 && !Objects.equals(stock.getProductCode(),productCode)){
+            stock.setProductCode(productCode);
+        }
+        if(productCategory!=null && productCategory.length() >0 && !Objects.equals(stock.getProductCategory(),productCategory)){
+            stock.setProductCategory(productCategory);
+        }
+        if(!Objects.equals(stock.getProductDate(),productDate)){
+            stock.setProductDate(productDate);
         }
         stockRepository.save(stock);
     }

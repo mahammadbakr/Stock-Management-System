@@ -12,8 +12,8 @@ public class ItemConfig {
     @Bean
     CommandLineRunner commandLineRunner(ItemRepository itemRepository){
         return args -> {
-            Item firstItem =new Item("First","ABC123",122,15,new Stock("random","random",1L));
-            Item secondItem =new Item("Second","ABC234",122,12, new  Stock("random","random",1L));
+            Item firstItem =new Item("First","ABC123",122,15,new Stock("random","random",100));
+            Item secondItem =new Item("Second","ABC234",122,12, new  Stock("random","random",100));
 
             itemRepository.saveAll(List.of(firstItem,secondItem));
         };

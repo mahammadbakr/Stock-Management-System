@@ -1,9 +1,9 @@
 package com.twekl.stockmanagementsystem.order;
 
 import com.sun.istack.NotNull;
-import com.twekl.stockmanagementsystem.item.Item;
 import com.twekl.stockmanagementsystem.vendor.Vendor;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,12 +24,20 @@ public class Order {
     @NotNull
     private String name;
 
+    @NotNull
+    private Timestamp orderDate;
+
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "orders")
     private Set<Vendor> vendors=new HashSet<>();
 
 
     public Order(String name) {
         this.name=name;
+    }
+
+    public Order(String name,Timestamp orderDate) {
+        this.name=name;
+        this.orderDate=orderDate;
     }
 
     public Order() {
@@ -53,6 +61,14 @@ public class Order {
 
     public Set<Vendor> getVendors() {
         return vendors;
+    }
+
+    public Timestamp getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Timestamp orderDate) {
+        this.orderDate = orderDate;
     }
 
     public void setVendors(Set<Vendor> vendors) {

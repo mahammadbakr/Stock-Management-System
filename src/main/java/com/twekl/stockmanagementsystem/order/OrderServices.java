@@ -1,11 +1,10 @@
 package com.twekl.stockmanagementsystem.order;
 
-import com.twekl.stockmanagementsystem.stock.Stock;
-import com.twekl.stockmanagementsystem.vendor.Vendor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,11 +33,14 @@ public class OrderServices {
     }
 
     @Transactional
-    public void updateOrder(Long orderId, String name) {
+    public void updateOrder(Long orderId, String name, Timestamp orderDate) {
         Order order = orderRepository.findById(orderId).orElseThrow(
                 ()-> new IllegalStateException("Order with id: "+orderId+" does not exist"));
         if(name!=null && name.length() >0 && !Objects.equals(order.getName(),name)){
             order.setName(name);
+        }
+        if(!Objects.equals(order.getOrderDate(),orderDate)){
+            order.setOrderDate(orderDate);
         }
         orderRepository.save(order);
     }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -42,9 +43,10 @@ public class OrderController {
     @PutMapping(path = "/updateOrder/{orderId}")
     public void updateItem(
             @PathVariable("orderId") Long orderId,
-            @RequestParam(required = false) String name
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Timestamp orderDate
     ){
-        orderServices.updateOrder(orderId,name);
+        orderServices.updateOrder(orderId,name,orderDate);
         throw new ResponseStatusException(
                 HttpStatus.OK, "Order Updated Successfully"
         );

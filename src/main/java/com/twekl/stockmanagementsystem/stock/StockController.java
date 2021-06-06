@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -47,9 +48,13 @@ public class StockController {
             @PathVariable("stockId") Long stockId,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String address,
-            @RequestParam(required = false) Long size
+            @RequestParam(required = false) int size,
+            @RequestParam(required = false) int level,
+            @RequestParam(required = false) String productCode,
+            @RequestParam(required = false) String productCategory,
+            @RequestParam(required = false) Timestamp productDate
             ){
-        stockServices.updateStock(stockId,name,address,size);
+        stockServices.updateStock(stockId,name,address,size,level,productCode,productCategory,productDate);
         throw new ResponseStatusException(
                 HttpStatus.OK, "Stock Updated Successfully"
         );

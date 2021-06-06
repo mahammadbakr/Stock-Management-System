@@ -30,7 +30,7 @@ public class Item {
     private String code;
     @NotNull
     private int price ;
-    @ColumnDefault("0")
+    @NotNull
     private int quantity;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "items")
