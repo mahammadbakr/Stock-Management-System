@@ -6,7 +6,9 @@ import com.twekl.stockmanagementsystem.order.Order;
 import com.twekl.stockmanagementsystem.order.OrderRepository;
 import com.twekl.stockmanagementsystem.stock.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -35,10 +37,16 @@ public class VendorController {
     @PostMapping
     public void addNewVendor(@RequestBody Vendor vendor){
         vendorServices.addNewVendor(vendor);
+        throw new ResponseStatusException(
+                HttpStatus.OK, "Vendor Added Successfully"
+        );
     }
     @DeleteMapping(path = "/deleteVendor/{vendorId}")
     public void deleteVendor(@PathVariable("vendorId") Long vendorId){
         vendorServices.deleteVendorById(vendorId);
+        throw new ResponseStatusException(
+                HttpStatus.OK, "Vendor Deleted Successfully"
+        );
     }
     @PutMapping(path = "/updateVendor/{vendorId}")
     public void updateVendor(
@@ -47,6 +55,9 @@ public class VendorController {
             @RequestParam(required = false) String address
     ){
         vendorServices.updateVendor(vendorId,name,address);
+        throw new ResponseStatusException(
+                HttpStatus.OK, "Vendor Updated Successfully"
+        );
     }
 
     @PutMapping(path = "/addItem/{vendorId}/items/{itemId}")

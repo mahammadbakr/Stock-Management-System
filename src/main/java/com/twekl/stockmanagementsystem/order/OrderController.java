@@ -3,7 +3,9 @@ package com.twekl.stockmanagementsystem.order;
 
 import com.twekl.stockmanagementsystem.vendor.VendorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -32,6 +34,9 @@ public class OrderController {
             @PathVariable("orderId") Long orderId
     ){
         orderServices.deleteOrderById(orderId);
+        throw new ResponseStatusException(
+                HttpStatus.OK, "Order Deleted Successfully"
+        );
     }
 
     @PutMapping(path = "/updateOrder/{orderId}")
@@ -40,6 +45,9 @@ public class OrderController {
             @RequestParam(required = false) String name
     ){
         orderServices.updateOrder(orderId,name);
+        throw new ResponseStatusException(
+                HttpStatus.OK, "Order Updated Successfully"
+        );
     }
 
 }

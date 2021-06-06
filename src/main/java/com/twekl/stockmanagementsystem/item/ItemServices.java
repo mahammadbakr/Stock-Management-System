@@ -37,7 +37,7 @@ public class ItemServices {
         itemRepository.deleteById(itemId);
     }
     @Transactional
-    public void updateItem(Long itemId, String name, String code, int price, int quantity) {
+    public Item updateItem(Long itemId, String name, String code, int price, int quantity) {
         Item item = itemRepository.findById(itemId).orElseThrow(
                 ()-> new IllegalStateException("Item with id: "+itemId+" does not exist"));
         if(name!=null && name.length() >0 && !Objects.equals(item.getName(),name)){
@@ -54,5 +54,6 @@ public class ItemServices {
         }
 
         itemRepository.save(item);
+        return  item;
     }
 }

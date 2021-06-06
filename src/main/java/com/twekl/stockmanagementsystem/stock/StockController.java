@@ -3,7 +3,9 @@ package com.twekl.stockmanagementsystem.stock;
 import com.twekl.stockmanagementsystem.item.Item;
 import com.twekl.stockmanagementsystem.item.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -28,10 +30,16 @@ public class StockController {
     @PostMapping
     public void addNewStock(@RequestBody Stock stock){
         stockServices.addNewStock(stock);
+        throw new ResponseStatusException(
+                HttpStatus.OK, "Stock Added Successfully"
+        );
     }
     @DeleteMapping(path = "/deleteStock/{stockId}")
     public void deleteStock(@PathVariable("stockId") Long stockId){
         stockServices.deleteStockById(stockId);
+        throw new ResponseStatusException(
+                HttpStatus.OK, "Stock Deleted Successfully"
+        );
     }
 
     @PutMapping(path = "/updateStock/{stockId}")
@@ -42,6 +50,9 @@ public class StockController {
             @RequestParam(required = false) Long size
             ){
         stockServices.updateStock(stockId,name,address,size);
+        throw new ResponseStatusException(
+                HttpStatus.OK, "Stock Updated Successfully"
+        );
     }
 
     @PutMapping(path = "/addItem/{stockId}/items/{itemId}")
