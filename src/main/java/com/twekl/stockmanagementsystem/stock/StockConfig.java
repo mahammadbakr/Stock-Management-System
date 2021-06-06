@@ -7,7 +7,6 @@ import java.util.List;
 
 @Configuration
 public class StockConfig {
-
     @Bean
     CommandLineRunner commandLineRunner(StockRepository stockRepository){
         return args -> {

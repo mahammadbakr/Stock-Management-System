@@ -1,6 +1,5 @@
 package com.twekl.stockmanagementsystem.item;
 
-import com.twekl.stockmanagementsystem.helper.APIError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +36,7 @@ public class ItemController {
         );
     }
     @PutMapping(path = "/updateItem/{itemId}")
-    public APIError updateItem(
+    public void updateItem(
             @PathVariable("itemId") Long itemId,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String code,

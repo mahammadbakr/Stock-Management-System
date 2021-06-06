@@ -65,12 +65,9 @@ public class StockController {
             @PathVariable("stockId") Long stockId,
             @PathVariable("itemId") Long itemId
     ){
-
         Item item = itemRepository.findById(itemId).get();
         Stock stock = stockServices.findById(stockId);
-
         stock.addItemInStock(item);
-
         stockServices.saveStock(stock);
 
         return stock;

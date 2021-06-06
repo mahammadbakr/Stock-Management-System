@@ -11,7 +11,6 @@ import java.util.Optional;
 public class VendorServices {
     private final VendorRepository vendorRepository;
 
-
     @Autowired
     public VendorServices(VendorRepository vendorRepository) {
         this.vendorRepository = vendorRepository;

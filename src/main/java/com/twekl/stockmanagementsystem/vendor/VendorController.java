@@ -4,7 +4,6 @@ import com.twekl.stockmanagementsystem.item.Item;
 import com.twekl.stockmanagementsystem.item.ItemRepository;
 import com.twekl.stockmanagementsystem.order.Order;
 import com.twekl.stockmanagementsystem.order.OrderRepository;
-import com.twekl.stockmanagementsystem.stock.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -82,9 +81,7 @@ public class VendorController {
     ){
         Order order = orderRepository.findById(orderId).get();
         Vendor vendor = vendorServices.findById(vendorId);
-
         vendor.addOrderInVendor(order);
-
         vendorServices.saveVendor(vendor);
         return vendor;
     }

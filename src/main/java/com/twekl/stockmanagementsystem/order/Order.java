@@ -30,7 +30,6 @@ public class Order {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "orders")
     private Set<Vendor> vendors=new HashSet<>();
 
-
     public Order(String name) {
         this.name=name;
     }

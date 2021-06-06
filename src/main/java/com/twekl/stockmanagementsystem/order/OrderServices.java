@@ -12,7 +12,6 @@ import java.util.Objects;
 @Component
 public class OrderServices {
 
-
     private final OrderRepository orderRepository;
 
     @Autowired
@@ -44,6 +43,5 @@ public class OrderServices {
         }
         orderRepository.save(order);
     }
-
 
 }

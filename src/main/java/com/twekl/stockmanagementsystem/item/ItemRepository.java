@@ -9,8 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface ItemRepository  extends JpaRepository<Item,Long> {
-    //Find an Item by it is Name
     @Query("SELECT i FROM Item i WHERE i.name = ?1")
     Optional<Item> findItemByName(String name);
-
 }

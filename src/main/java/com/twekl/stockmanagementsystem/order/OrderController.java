@@ -18,9 +18,6 @@ public class OrderController {
     private OrderServices orderServices;
 
     @Autowired
-    private VendorRepository vendorRepository;
-
-    @Autowired
     public OrderController(OrderServices orderServices){
         this.orderServices=orderServices;
     }

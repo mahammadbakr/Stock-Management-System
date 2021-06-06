@@ -1,9 +1,7 @@
 package com.twekl.stockmanagementsystem.stock;
 
-import com.twekl.stockmanagementsystem.vendor.Vendor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.List;
